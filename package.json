@@ -1,0 +1,42 @@
+{
+  "name": "vue3-component-store",
+  "version": "0.0.4",
+  "description": "a store for a component",
+  "main": "dist/vue3-component-store.umd.js",
+  "module": "dist/vue3-component-store.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-component-store.es.js",
+      "require": "./dist/vue3-component-store.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amir-armantaheri/component-store.git"
+  },
+  "keywords": [
+    "component-store",
+    "vue",
+    "vue3",
+    "vue3-component-store"
+  ],
+  "author": "amirhosein.taheri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amir-armantaheri/component-store/issues"
+  },
+  "homepage": "https://github.com/amir-armantaheri/component-store#readme",
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/compiler-sfc": "^3.5.12",
+    "path": "^0.12.7",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
+    "vite-plugin-dts": "^4.2.4",
+    "vue": "^3.5.12"
+  }
+}
