@@ -8,17 +8,19 @@ ComponentStore is a stand-alone library that helps manage local/component state.
 1. **No Conflict with Composables**: The component store internally uses the composable approach and provide/inject. When using composables, reactive variables are recreated each time, preventing a standalone state for your component. If the state is outside the composable, it is shared across all instances, which can break the application. The component store solves this by maintaining a standalone state.
 2. **Powerful and Easy to Use**: The component store allows any composable to be used as an extension, enhancing its power and ease of use.
 3. **Separation of View and Logic**: By separating view and logic, you can divide your component into smaller parts, maintaining single responsibility. This eliminates the need to pass many props or events between the root component and its children, as the logic is handled in the component store. Both the root and child components can access the store to change state or execute functions like API requests or localStorage operations.
+4. **shared logic between UI components** : consider a complex component like datepicker that may need multiple different component for different UI or different functionality. so using component store you can easily share the logic between them which will make everything resuable and easy to add feature or even fixing a bug.
+
 
 Powerful and Easy to Use: The component store allows any composable to be used as an extension, enhancing its power and ease of use.
 
 Separation of View and Logic: By separating view and logic, you can divide your component into smaller parts, maintaining single responsibility. This eliminates the need to pass many props or events between the root component and its children, as the logic is handled in the component store. Both the root and child components can access the store to change state or execute functions like API requests or localStorage operations.
 
-
-# Code Samples
-In `counter.store.ts` create a new component store using the createComponentStore function. This returns two functions to provide and use the instance in child components. Use the providedStore function only at the root component (each call creates a new instance).
+for better typescript support enable **strictFunctionTypes** in you tsconfig file
+# how to use
+In `counter.store.ts` create a new component store using the componentStore function. This returns two functions to provide and use the instance in child components. Use the providedStore function only at the root component (each call creates a new instance).
 
 ```javascript
-export const [provideCounterStore, useCounterStore] = createComponentStore(
+export const [provideCounterStore, useCounterStore] = componentStore(
   (store) => {
     const count = ref(0)
     function increment () {
@@ -33,7 +35,7 @@ export const [provideCounterStore, useCounterStore] = createComponentStore(
     const double = computed(() => store.count * 2)
     return {double}
   },
-  (store => {
+  (store) => {
     onMounted(() => {
       console.log('mounted', store.double)
       store.increment()
@@ -44,7 +46,14 @@ export const [provideCounterStore, useCounterStore] = createComponentStore(
 ```
 
 # Extensions
-The component store can be extended by adding new functions or properties to the store. This is done by passing a function to the createComponentStore function. The function receives the store instance and returns an object with the new functions or properties.
+The component store can be extended by adding new functions or properties to the store. This is done by passing a function to the componentStore function. The function receives the store instance and returns an object with the new functions or properties.
+you also can use storeFeature function to combine several composables/extensions/features and create a single reusable store feature.
+
+------------
+**you always have access to properties/state or functions of previous features so the order of adding features are important**
+
+------------
+
 
 ```javascript
 export function withRequestStatus() {
@@ -72,26 +81,82 @@ export function withRequestStatus() {
     return {loading, error, initializing, startLoading, stopLoading, setError, startInitializing, stopInitializing}
   }
 }
+
+export function withEntity<T>() {
+  return () => {
+    const entity = ref<T | null>(null)
+    const entities = ref<T[]>([])
+    function setEntity(value: T| null) {
+      entity.value = value
+    }
+
+    function setEntities(value: T[]) {
+      entities.value = value
+    }
+    function resetAll() {
+      entity.value = null
+      entities.value = []
+    }
+
+    return {entity, entities, setEntity, setEntities, resetAll}
+  }
+}
+
 ```
+
+```javascript
+export const newStoreFeature = storeFeature(
+  withRequestStatus(),
+  withEntity<UserInfo>(),
+  (store) => {
+    onMounted(async () => {
+	const {users} = await getUsers()
+      setData(users[0], users)
+    })
+    function setData(selecteduser: UserInfo, allUsers: UserInfo[]) {
+      store.setEntity(selectedUser)
+      store.setEntities(allUsers)
+    }
+    return {
+      setData
+    }
+  }
+  
+)
+```
+### typescript support
+component store has been written by typescript so you should not be worried about typescript support. but in some case it could be possible some features are dependant to each other. for example a spinner feature which is dependant to withRequestStatus feature because of "loading" state. in order to make sure there is already a feature which has provided the "loading" state you can define a type for store argument of spinner feature that expect a loading property like this:
+
+```javascript
+export function withSpinner() {
+  return (store: {loading: boolean}) => {
+    console.log(store.loading)
+    watch(() => store.loading, (isLoading) => {
+      // trigger loading 
+    })
+  }  
+}
+```
+in this case if you don't provid a feature before withSpinner that has provided "loading" property, you will face a typescript error. so awesome typescript support for dependant features.
 
 ### Using Extensions
 ```javascript
-export const [provideUserStore, useUserStore] = createComponentStore(
-  withRequestStatus(),
-  (store => {
+export const [provideUserStore, useUserStore] = componentStore(
+  newStoreFeature(),
+  (store) => {
     const userService = useUserService()
     const userInfo = ref<UserInfo|null>(null)
-    
+
     onMounted(async () => {
       store.startInitializing()
-        try {
-          const user = await userService.getUser()
-          userInfo.value = user
-        } catch (err) {
-          store.setError(err)
-        } finally {
-          store.stopInitializing()
-        }
+      try {
+        const user = await userService.getUser()
+        userInfo.value = user
+      } catch (err) {
+        store.setError(err)
+      } finally {
+        store.stopInitializing()
+      }
     })
     async function updateUser() {
       store.startLoading()
@@ -109,7 +174,7 @@ export const [provideUserStore, useUserStore] = createComponentStore(
 )
 ```
 # how to use store
-you can simply create the store instance for your component by calling the **useCounterStore** function
+you can simply create the store instance for your component by calling the **provideUserStore** function
 
 ### root component
 ```javascript

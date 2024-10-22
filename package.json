@@ -1,11 +1,12 @@
 {
   "name": "vue3-component-store",
-  "version": "0.0.4",
-  "description": "a store for a component",
-  "main": "dist/vue3-component-store.umd.js",
-  "module": "dist/vue3-component-store.es.js",
+  "version": "0.0.10",
+  "description": "component store solution for vue 3",
+  "main": "./dist/vue3-component-store.umd.js",
+  "module": "./dist/vue3-component-store.es.js",
   "exports": {
     ".": {
+      "types": "./dist/vue3-component-store.d.ts",
       "import": "./dist/vue3-component-store.es.js",
       "require": "./dist/vue3-component-store.umd.js"
     }

@@ -1,18 +1,26 @@
-import { reactive as o, toRefs as r, provide as s, inject as m } from "vue";
-function a(...c) {
-  const e = Symbol("componentStore");
-  function i() {
-    const t = c.reduce((n, f) => {
-      const p = f(n);
-      return o({ ...r(n), ...r(p) });
-    }, o({}));
-    return s(e, t), t;
+import {inject as s, provide as i, reactive as u} from 'vue'
+
+function c(e, n = {}) {
+  return e.reduce((t, o) => {
+    const r = o(u(t))
+    return {...t, ...r}
+  }, n)
+}
+function m(...e) {
+  const n = Symbol("component-store");
+  function t() {
+    const r = u(c(e));
+    return i(n, r), r;
   }
-  function u() {
-    return m(e);
+  function o() {
+    return s(n);
   }
-  return [i, u];
+  return [t, o];
+}
+function p(...e) {
+  return () => c(e);
 }
 export {
-  a as createComponentStore
+  m as componentStore,
+  p as storeFeature
 };
