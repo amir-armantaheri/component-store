@@ -2,14 +2,16 @@ import {computed, ref} from 'vue'
 import {componentStore, storeFeature} from '../src'
 
 function newFeature() {
-  return storeFeature(() => ({name: 'hasan'}), withLoading())
+  return storeFeature((store) => {
+    return {name: 'hasan'}
+  }, withLoading())
 }
 
 const [provideStore, useStore] = componentStore(
-  newFeature(),
   (store) => {
     return {
-      kk: 'assd',
+      name: 'hasan',
+      loading: false
     }
   },
   withStats(),

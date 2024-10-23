@@ -4,18 +4,19 @@ function c(e, n = {}) {
   return e.reduce((t, o) => {
     const r = o(u(t))
     return {...t, ...r}
-  }, n)
+  }, u(n))
 }
 function m(...e) {
   const n = Symbol("component-store");
-  function t() {
-    const r = u(c(e));
-    return i(n, r), r;
-  }
-  function o() {
-    return s(n);
-  }
-  return [t, o];
+  return [
+    function(o) {
+      const r = u(c(e, o));
+      return i(n, r), r;
+    },
+    function() {
+      return s(n);
+    }
+  ];
 }
 function p(...e) {
   return () => c(e);

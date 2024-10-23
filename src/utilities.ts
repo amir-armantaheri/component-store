@@ -5,5 +5,5 @@ export function combineFeatures(features: StoreFeature[], initialValue: EmptyCom
   return features.reduce((store, feature) => {
     const featureStore = feature(reactive(store))
     return {...store, ...featureStore}
-  }, initialValue)
+  }, reactive(initialValue))
 }

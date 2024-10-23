@@ -1,6 +1,6 @@
 {
   "name": "vue3-component-store",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "description": "component store solution for vue 3",
   "main": "./dist/vue3-component-store.umd.js",
   "module": "./dist/vue3-component-store.es.js",
@@ -23,7 +23,14 @@
     "component-store",
     "vue",
     "vue3",
-    "vue3-component-store"
+    "vue3-component-store",
+    "vue3-store",
+    "store",
+    "pinia",
+    "vuex",
+    "local store",
+    "vue 3 store",
+    "vue 3 component store"
   ],
   "author": "amirhosein.taheri",
   "license": "ISC",

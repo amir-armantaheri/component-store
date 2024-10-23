@@ -1,11 +1,12 @@
 import type {Reactive} from 'vue'
 
 export type EmptyComponentStore = {}
-export type CombineFeatures<T> = StoreFeature<EmptyComponentStore, T>
+export type CombineFeatures<S,T extends EmptyComponentStore> = StoreFeature<S, T>
 export type StoreFeature<
-  Input extends EmptyComponentStore = EmptyComponentStore,
+  Input = EmptyComponentStore,
   Output extends EmptyComponentStore = EmptyComponentStore
 > = (store: Reactive<Input>) => Output
 
 
-export type ComponentStore<T> =[() => Reactive<T>, () => Reactive<T>]
+export type ComponentStore<T = EmptyComponentStore> =[() => Reactive<T>, () => Reactive<T>]
+export type ComponentStoreInit<S, T = EmptyComponentStore> =[(store: S) => Reactive<T>, () => Reactive<T>]
