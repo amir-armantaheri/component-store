@@ -9,5 +9,9 @@
     "strict": true,
 //    "noImplicitAny": true,
     "strictFunctionTypes": true
-  }
+  },
+  // The dev harness in app/ is not part of the published library, and must not
+  // reach the dts build. It has its own tsconfig.
+  "include": ["src"],
+  "exclude": ["app", "dist", "node_modules"]
 }

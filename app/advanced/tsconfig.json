@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "target": "ES2022",
+    "moduleResolution": "Bundler",
+    "types": ["vite/client"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "strictFunctionTypes": true,
+    "jsx": "preserve",
+    "allowJs": false,
+    "skipLibCheck": true
+  },
+  "include": [".", "../src", "../simple/store.ts"]
+}

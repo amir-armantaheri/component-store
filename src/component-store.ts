@@ -1,6 +1,6 @@
-import {inject, provide, reactive} from 'vue'
-import {ComponentStore, ComponentStoreInit, EmptyComponentStore, StoreFeature} from './component-store.model'
-import {combineFeatures} from './utilities'
+import { inject, provide } from 'vue'
+import { ComponentStore, ComponentStoreInit, EmptyComponentStore, StoreFeature } from './component-store.model'
+import { combineFeatures } from './utilities'
 
 export function componentStore<F1 extends EmptyComponentStore = EmptyComponentStore>(
   arg1: StoreFeature<Record<string, never>, F1>
@@ -578,12 +578,16 @@ export function componentStore(...features: StoreFeature[]): ComponentStore | Co
   const injectionKey = Symbol('component-store')
   return [
     function providerFn(store) {
-      const storeInstance = reactive(combineFeatures(features, store))
+      const storeInstance = combineFeatures(features, store)
       provide(injectionKey, storeInstance)
       return storeInstance
     },
     function useStoreFn() {
-      return inject(injectionKey)!
+      const store = inject(injectionKey)!
+      if (!store) {
+        console.error('Component store is not provided. Please make sure to call the provider function before using the store.')
+      }
+      return store
     }
   ]
   // return [providerFn, useStoreFn]
