@@ -2,16 +2,16 @@
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
-    "module": "ES2022",
+    "module": "nodenext",
     "target": "ES2022",
-    "moduleResolution": "Node",
+    "moduleResolution": "nodenext",
+    "lib": ["ES2022", "DOM"],
     "types": ["node"],
+    "skipLibCheck": true,
     "strict": true,
 //    "noImplicitAny": true,
     "strictFunctionTypes": true
   },
-  // The dev harness in app/ is not part of the published library, and must not
-  // reach the dts build. It has its own tsconfig.
   "include": ["src"],
   "exclude": ["app", "dist", "node_modules"]
 }

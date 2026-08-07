@@ -17,6 +17,20 @@ Separation of View and Logic: By separating view and logic, you can divide your 
 
 for better typescript support enable **strictFunctionTypes** in you tsconfig file
 
+# installation
+
+```bash
+npm install vue3-component-store
+```
+
+Requires Vue 3.5 or later as a peer dependency.
+
+Everything is exported from the package root:
+
+```javascript
+import {componentStore, storeFeature, withState, withComputed, withMethods, withHooks, withProps} from 'vue3-component-store'
+```
+
 # how to use
 
 In `counter.store.ts` create a new component store using the componentStore function. This returns two functions to provide and use the instance in child components. Use the providedStore function only at the root component (each call creates a new instance).

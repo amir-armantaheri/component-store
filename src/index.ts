@@ -1,3 +1,3 @@
-export * from './component-store'
-export * from './store-feature'
-export * from './features'
+export * from './component-store.js'
+export * from './store-feature.js'
+export * from './features/index.js'

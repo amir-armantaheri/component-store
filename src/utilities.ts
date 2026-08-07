@@ -1,4 +1,4 @@
-import { EmptyComponentStore, StoreFeature } from './component-store.model'
+import { EmptyComponentStore, StoreFeature } from './component-store.model.js'
 import { isReactive, isReadonly, reactive, Reactive, toRefs } from 'vue'
 
 export type ExtractFeatureType<T extends () => (x: any) => any> = Reactive<ReturnType<ReturnType<T>>>

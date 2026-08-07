@@ -2,25 +2,30 @@
   "name": "vue3-component-store",
   "version": "0.1.0",
   "description": "component store solution for vue 3",
-  "main": "./dist/vue3-component-store.umd.js",
-  "module": "./dist/vue3-component-store.es.js",
+  "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/vue3-component-store.d.ts",
-      "import": "./dist/vue3-component-store.es.js",
-      "require": "./dist/vue3-component-store.umd.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
     }
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "prepublishOnly": "npm run typecheck && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "github.com:amir-armantaheri/component-store.git"
+    "url": "git+https://github.com/amir-armantaheri/component-store.git"
   },
   "keywords": [
     "component-store",
@@ -41,13 +46,17 @@
     "url": "https://github.com/amir-armantaheri/component-store/issues"
   },
   "homepage": "https://github.com/amir-armantaheri/component-store#readme",
-  "dependencies": {
-    "@vitejs/plugin-vue": "^5.1.4",
-    "@vue/compiler-sfc": "^3.5.12",
-    "path": "^0.12.7",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.9",
-    "vite-plugin-dts": "^4.2.4",
-    "vue": "^3.5.12"
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "@typescript/typescript6": "^6.0.2",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/language-core": "^3.3.9",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "vite-plugin-dts": "^5.0.3",
+    "vue": "^3.5.41"
   }
 }

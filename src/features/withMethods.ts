@@ -1,4 +1,4 @@
-import { EmptyComponentStore, StoreFeature } from '../component-store.model'
+import { EmptyComponentStore, StoreFeature } from '../component-store.model.js'
 
 export function withMethods<
   Store extends EmptyComponentStore = EmptyComponentStore,

@@ -1,5 +1,5 @@
 import {onMounted, onUnmounted, Reactive} from 'vue'
-import {EmptyComponentStore, StoreFeature} from '../component-store.model'
+import {EmptyComponentStore, StoreFeature} from '../component-store.model.js'
 
 type OnHook = () => void
 interface WithHooks {

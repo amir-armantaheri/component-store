@@ -1,6 +1,6 @@
 import { inject, provide } from 'vue'
-import { ComponentStore, ComponentStoreInit, EmptyComponentStore, StoreFeature } from './component-store.model'
-import { combineFeatures } from './utilities'
+import { ComponentStore, ComponentStoreInit, EmptyComponentStore, StoreFeature } from './component-store.model.js'
+import { combineFeatures } from './utilities.js'
 
 export function componentStore<F1 extends EmptyComponentStore = EmptyComponentStore>(
   arg1: StoreFeature<Record<string, never>, F1>

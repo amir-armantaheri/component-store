@@ -1,5 +1,5 @@
-import {CombineFeatures, EmptyComponentStore, StoreFeature} from './component-store.model'
-import {combineFeatures} from './utilities'
+import {CombineFeatures, EmptyComponentStore, StoreFeature} from './component-store.model.js'
+import {combineFeatures} from './utilities.js'
 
 export function storeFeature<F0 extends EmptyComponentStore, F1 extends EmptyComponentStore>(
   arg1: StoreFeature<F0, F1>
