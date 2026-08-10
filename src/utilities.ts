@@ -1,9 +1,9 @@
-import { EmptyComponentStore, StoreFeature } from './component-store.model.js'
-import { isReactive, isReadonly, reactive, Reactive, toRefs } from 'vue'
+import { EmptyComponentStore, StoreFeature, StoreState } from './component-store.model.js'
+import { isReactive, isReadonly, reactive, toRefs } from 'vue'
 
-export type ExtractFeatureType<T extends () => (x: any) => any> = Reactive<ReturnType<ReturnType<T>>>
+export type ExtractFeatureType<T extends () => (x: any) => any> = StoreState<ReturnType<ReturnType<T>>>
 
-function toReactive(obj: Reactive<Record<string, any>> | Record<string, any>) {
+function toReactive(obj: StoreState<Record<string, any>> | Record<string, any>) {
   return isReactive(obj) ? toRefs(obj) : obj
 }
 export function combineFeatures(features: StoreFeature[], initialValue: EmptyComponentStore = {}) {

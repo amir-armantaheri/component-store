@@ -1,3 +1,4 @@
+export * from './utilities.js'
 export * from './component-store.model.js'
 export * from './component-store.js'
 export * from './store-feature.js'
