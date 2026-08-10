@@ -1,6 +1,6 @@
 {
   "name": "vue3-component-store",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "component store solution for vue 3",
   "type": "module",
   "main": "./dist/index.umd.cjs",
