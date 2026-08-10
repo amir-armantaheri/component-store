@@ -7,11 +7,11 @@ function toReactive(obj: Reactive<Record<string, any>> | Record<string, any>) {
   return isReactive(obj) ? toRefs(obj) : obj
 }
 export function combineFeatures(features: StoreFeature[], initialValue: EmptyComponentStore = {}) {
-  const initalReactiveObject = isReadonly(initialValue) ? toRefs(initialValue) : initialValue
+  const initialReactiveObject = isReadonly(initialValue) ? toRefs(initialValue) : initialValue
   return features.reduce((store, feature) => {
     const featureStore = feature(store)
 
     if (featureStore === store) return store
     return Object.assign(store, toReactive(featureStore))
-  }, reactive(initalReactiveObject))
+  }, reactive(initialReactiveObject))
 }

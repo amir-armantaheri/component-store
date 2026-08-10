@@ -1,5 +1,5 @@
-import {onMounted, onUnmounted, Reactive} from 'vue'
-import {EmptyComponentStore, StoreFeature} from '../component-store.model.js'
+import {onMounted, onUnmounted} from 'vue'
+import {EmptyComponentStore, StoreFeature, StoreState} from '../component-store.model.js'
 
 type OnHook = () => void
 interface WithHooks {
@@ -9,7 +9,7 @@ interface WithHooks {
 }
 
 export function withHooks<Store extends EmptyComponentStore = EmptyComponentStore>(feature: StoreFeature<Store, WithHooks>) {
-  return (store: Reactive<Store>) => {
+  return (store: StoreState<Store>) => {
     const {onProvide, onUnmounted: onUnmount, onMounted: onMount} = feature(store)
     if (onProvide) {
       onProvide()
