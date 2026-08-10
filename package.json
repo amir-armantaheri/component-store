@@ -22,7 +22,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "prepublishOnly": "npm run typecheck && npm run build",
-    "publish": "npm version minor && npm run build && npm publish"
+    "publish": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
