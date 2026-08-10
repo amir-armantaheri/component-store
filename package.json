@@ -21,7 +21,8 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "prepublishOnly": "npm run typecheck && npm run build"
+    "prepublishOnly": "npm run typecheck && npm run build",
+    "publish": "npm version minor && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -51,10 +52,10 @@
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
-    "@typescript/typescript6": "^6.0.2",
+    "@vue/compiler-sfc": "^3.5.41",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/language-core": "^3.3.9",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.2",
     "vite": "^8.2.1",
     "vite-plugin-dts": "^5.0.3",
     "vue": "^3.5.41"

@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, computed, reactive, ref } from 'vue'
-import { componentStore, withComputed, withMethods, withProps, withState } from '../src'
+import { componentStore, withComputed, withMethods, withProps, withState, withStateChange } from '../src'
 import { ChildCmpProps } from './main'
 
 const myState = reactive({
@@ -42,7 +42,8 @@ const [provideStore, useStore] = componentStore(
     }
 
     return { reset }
-  })
+  }),
+  withStateChange()
 )
 
 export { incrementPlainRef, myRefObject, myState, provideStore, useStore }

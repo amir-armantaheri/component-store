@@ -22,12 +22,14 @@
 <script setup lang="ts">
 import { ChildCmpProps } from './main'
 const props = defineProps<ChildCmpProps>()
-
 import { incrementPlainRef, myRefObject, myState, provideStore } from './store'
 const store = provideStore(props)
-store.onPropChange('id', (newId, oldId) => {
+
+store.watchState('el', (newId, oldId) => {
   console.log('id changed to', newId, 'from', oldId)
 })
-console.log(store);
+store.watchComputedState((store) => store.id, (newId, oldId) => {
+  console.log('computed id changed to', newId, 'from', oldId)
+})
 
 </script>

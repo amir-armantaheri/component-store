@@ -9,4 +9,4 @@ export type StoreFeature<
 
 
 export type ComponentStore<T = EmptyComponentStore> =[() => Reactive<T>, () => Reactive<T>]
-export type ComponentStoreInit<S, T = EmptyComponentStore> =[(store: S) => Reactive<T>, () => Reactive<T>]
+export type ComponentStoreInit<S, T = EmptyComponentStore> =[(store: S) => Reactive<T> & Reactive<S>, () => Reactive<T> & Reactive<S>]
